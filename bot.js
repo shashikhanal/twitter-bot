@@ -21,10 +21,12 @@ function getTweets(){
 		var tweets = data.statuses;
 		for (var i = 0; i < tweets.length; i++) {
 			console.log(tweets[i].text);
-			console.log(tweets[i].screen_name);
+			console.log(" Screen name: " +tweets[i].screen_name);
+
+			var randomNo = Math.floor(Math.random()*1000);
 
 			if (tweets[i].screen_name !== 'o_lala_o_lala') {
-				setInterval(postTweets('@'+ tweets[i].screen_name + ' Thank you for tweeting about #buddha. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.'), 1000*5);
+				postTweets('@'+ tweets[i].screen_name +' '+ randomNo + ' Thank you for tweeting about #buddha. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.');
 			}
 		}
 	}; 
@@ -43,7 +45,6 @@ function postTweets(tweetText) {
 		if (err) {
 			console.log("Error "+ err + " occured. Do someting dude!!!");
 		}
-		console.log(data);
 	}
 }
 
@@ -56,7 +57,10 @@ stream.on('follow', followed);
 function followed(eventMsg) {
 	var name = eventMsg.source.name;
 	var screenName = eventMsg.source.screen_name;
-	postTweets('@'+ screenName + ' Thank you for following me. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.');
+
+	var randomNo = Math.floor(Math.random()*1000);
+
+	postTweets('@'+ screenName + ' '+randomNo+ ' Thank you for following me. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.');
 }
 
 // When someone tweets me
@@ -70,9 +74,12 @@ function tweeted(eventMsg) {
 	var replyTo = eventMsg.in_reply_to_screen_name;
 	var text = eventMsg.text;
 	var from = eventMsg.user.screen_name;
+
+	var randomNo = Math.floor(Math.random()*1000);
+
 	// replies to the user who tweeted me with a message
 	if(replyTo == 'o_lala_o_lala') {
-		var newTweet = '@' + from + ' thank you for tweeting me. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.';
+		var newTweet = '@' + from + ' '+ randomNo + ' thank you for tweeting me. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.';
 			postTweets(newTweet);
 	}
 

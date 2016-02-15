@@ -5,13 +5,13 @@ var config = require('./config');
 
 var T = new Twit(config);
 
-//setInterval(getTweets, 1000*5);
+setInterval(getTweets, 1000*60);
 
 function getTweets(){
 
 	var params = {
 		q: 'buddha',
-		count: 2
+		count: 10
 	}
 	T.get('search/tweets', params, gotData);
 
@@ -19,6 +19,11 @@ function getTweets(){
 		var tweets = data.statuses;
 		for (var i = 0; i < tweets.length; i++) {
 			console.log(tweets[i].text);
+			console.log(tweets[i].screen_name);
+
+			if (tweets[i].screen_name !== 'o_lala_o_lala') {
+				setInterval(postTweets('@'+ tweets[i].screen_name + ' Thank you for tweeting about #buddha. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.'), 1000*5);
+			}
 		}
 	}; 
 }
@@ -52,7 +57,7 @@ stream.on('follow', followed);
 function followed(eventMsg) {
 	var name = eventMsg.source.name;
 	var screenName = eventMsg.source.screen_name;
-	postTweets('@'+ screenName + ' Thank you for following me. And do you know #buddha was born in Nepal? Please visit his birthplace, Nepal.');
+	postTweets('@'+ screenName + ' Thank you for following me. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.');
 }
 
 // When someone tweets me
@@ -68,7 +73,7 @@ function tweeted(eventMsg) {
 	var from = eventMsg.user.screen_name;
 
 	if(replyTo == 'o_lala_o_lala') {
-		var newTweet = '@' + from + ' thank you for tweeting me. And do you know #buddha was born in Nepal? Please visit his birthplace, Nepal.';
+		var newTweet = '@' + from + ' thank you for tweeting me. And do you know #buddha was born in #Nepal? Please visit his birthplace, Nepal.';
 			postTweets(newTweet);
 	}
 

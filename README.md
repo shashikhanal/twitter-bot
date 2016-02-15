@@ -5,4 +5,4 @@ This bot searches the tweets in the twitter every minute which contains the keyw
 
 This bot is greatly inspired by the wisdom and knowledge spread by Buddha in the whole world and it has made it's primary objective to spread the knowledge about the birthplace of Buddha who is also known as Light of Asia.
 
-** bot is powered by node.js
+*built with node.js*
